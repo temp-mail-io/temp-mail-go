@@ -29,12 +29,12 @@ type CreateEmailOptions struct {
 // createEmailRequest represents the request to create an email
 type createEmailRequest struct {
 	// Email is the email address to create. If not provided, a random email address will be generated
-	Email string `json:"email"`
+	Email string `json:"email,omitempty"`
 	// DomainType is the type of domain to use for the email address.
 	// Possible values are: "public", "custom", "premium"
-	DomainType string `json:"domain_type"`
+	DomainType string `json:"domain_type,omitempty"`
 	// Domain is the domain to use for the email address.
-	Domain string `json:"domain"`
+	Domain string `json:"domain,omitempty"`
 }
 
 // createEmailResponse represents the response to create an email.
