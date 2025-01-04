@@ -1,6 +1,7 @@
 package temp_mail_go
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -43,7 +44,15 @@ func NewClient(apiKey string, client *http.Client) *Client {
 }
 
 // newRequest creates a new HTTP request.
-func (c *Client) newRequest(ctx context.Context, method, path string, body io.Reader) (*http.Request, error) {
+func (c *Client) newRequest(ctx context.Context, method, path string, data interface{}) (*http.Request, error) {
+	var body io.Reader
+	if data != nil {
+		b, err := json.Marshal(data)
+		if err != nil {
+			return nil, err
+		}
+		body = bytes.NewReader(b)
+	}
 	req, err := http.NewRequestWithContext(ctx, method, baseURL+path, body)
 	if err != nil {
 		return nil, err
