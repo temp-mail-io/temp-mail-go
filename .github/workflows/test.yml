@@ -36,3 +36,4 @@ jobs:
           files: coverage.txt
           flags: ${{ matrix.go-version }}
           name: CI Test Coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
