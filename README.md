@@ -76,7 +76,16 @@ if err != nil {
     // handle error
 }
 fmt.Printf("limit: %d, used: %d, remaining: %d, reset: %s\n", resp.Limit, resp.Used, resp.Remaining, resp.Reset)
-// Output: limit: 1000, used: 0, remaining: 1000, reset: 2025-02-01 23:59:59 +0000 +00
+// Output: limit: 1000, used: 0, remaining: 1000, reset: 2025-01-31 23:59:59 +0000 UTC
+```
+
+You can also get the rate limits from the response headers:
+```go
+email, resp, err := client.CreateEmail(context.Background(), tempmail.CreateEmailOptions{})
+if err != nil {
+    // handle error
+}
+fmt.Printf("Rate limit: %d\n", resp.Rate.Limit)
 ```
 
 ### Creating Temporary Emails
@@ -85,7 +94,7 @@ email, _, err := client.CreateEmail(context.Background(), tempmail.CreateEmailOp
 	Domain: "example.com",
 })
 if err != nil {
-// handle error
+    // handle error
 }
 fmt.Printf("Created temporary email: %s (TTL: %d seconds)\n", email.Email, email.TTL)
 ```
