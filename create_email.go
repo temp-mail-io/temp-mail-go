@@ -2,6 +2,7 @@ package temp_mail_go
 
 import (
 	"context"
+	"net/http"
 	"time"
 )
 
@@ -60,7 +61,7 @@ func (c *Client) CreateEmail(ctx context.Context, options CreateEmailOptions) (C
 		DomainType: options.DomainType,
 		Domain:     options.Domain,
 	}
-	request, err := c.newRequest(ctx, "POST", "/v1/emails", req)
+	request, err := c.newRequest(ctx, http.MethodPost, "/v1/emails", req)
 	if err != nil {
 		return CreateEmailResponse{}, nil, err
 	}

@@ -2,6 +2,7 @@ package temp_mail_go
 
 import (
 	"context"
+	"net/http"
 	"time"
 )
 
@@ -30,7 +31,7 @@ type rateLimitResponse struct {
 
 // RateLimit returns the current rate limit for the client.
 func (c *Client) RateLimit(ctx context.Context) (Rate, *Response, error) {
-	req, err := c.newRequest(ctx, "GET", "/v1/rate_limit", nil)
+	req, err := c.newRequest(ctx, http.MethodGet, "/v1/rate_limit", nil)
 	if err != nil {
 		return Rate{}, nil, err
 	}
