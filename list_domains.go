@@ -20,16 +20,16 @@ type ListDomainsDomainResponse struct {
 }
 
 // ListDomains returns a list of domains available for use.
-func (c *Client) ListDomains(ctx context.Context) ([]ListDomainsResponse, *Response, error) {
+func (c *Client) ListDomains(ctx context.Context) (ListDomainsResponse, *Response, error) {
 	req, err := c.newRequest(ctx, http.MethodGet, "/v1/domains", nil)
 	if err != nil {
-		return nil, nil, err
+		return ListDomainsResponse{}, nil, err
 	}
 
-	var resp []ListDomainsResponse
+	var resp ListDomainsResponse
 	r, err := c.do(req, &resp)
 	if err != nil {
-		return nil, nil, err
+		return ListDomainsResponse{}, nil, err
 	}
 
 	return resp, r, nil
