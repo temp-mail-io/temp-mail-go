@@ -11,7 +11,7 @@ The **official Go Client** for [Temp Mail](https://temp-mail.io). This library p
 - [Usage Examples](#usage-examples)
     - [Listing Domains](#listing-domains)
     - [Getting Rate Limits](#getting-rate-limits)
-    - [Creating Temporary Emails](#creating-temporary-emails)
+    - [Creating Temporary Email](#creating-temporary-email)
     - [Fetching and Deleting Messages](#fetching-and-deleting-messages)
 - [Testing](#testing)
 - [Contributing](#contributing)
@@ -88,7 +88,7 @@ if err != nil {
 fmt.Printf("Rate limit: %d\n", resp.Rate.Limit)
 ```
 
-### Creating Temporary Emails
+### Creating Temporary Email
 ```go
 email, _, err := client.CreateEmail(context.Background(), tempmail.CreateEmailOptions{
 	Domain: "example.com",
@@ -96,12 +96,12 @@ email, _, err := client.CreateEmail(context.Background(), tempmail.CreateEmailOp
 if err != nil {
     // handle error
 }
-fmt.Printf("Created temporary email: %s (TTL: %d seconds)\n", email.Email, email.TTL)
+fmt.Printf("Created temporary email: %s (TTL: %s)\n", email.Email, email.TTL)
 ```
 
 ### Fetching and Deleting Messages
 ```go
-messages, _, err := client.GetEmailMessages(context.Background(), "your_email@example.com")
+messages, _, err := client.ListEmailMessages(context.Background(), "your_email@example.com")
 if err != nil {
     // handle error
 }
