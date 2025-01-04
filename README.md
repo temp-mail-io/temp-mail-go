@@ -41,7 +41,7 @@ import (
 	"fmt"
 	"log"
 
-	tempmail "github.com/temp-mail-io/temp-mail-go"
+	"github.com/temp-mail-io/temp-mail-go"
 )
 
 func main() {

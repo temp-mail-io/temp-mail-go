@@ -1,4 +1,4 @@
-package temp_mail_go
+package tempmail
 
 import (
 	"fmt"
