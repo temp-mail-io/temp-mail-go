@@ -52,11 +52,11 @@ func (c *Client) ListEmailMessages(ctx context.Context, email string) ([]ListEma
 		return nil, nil, err
 	}
 
-	var messages []ListEmailMessagesResponse
-	resp, err := c.do(req, &messages)
+	var resp []ListEmailMessagesResponse
+	r, err := c.do(req, &resp)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return messages, resp, nil
+	return resp, r, nil
 }

@@ -47,11 +47,11 @@ func (c *Client) GetMessage(ctx context.Context, messageID string) (GetMessageRe
 		return GetMessageResponse{}, nil, err
 	}
 
-	var message GetMessageResponse
-	resp, err := c.do(req, &message)
+	var resp GetMessageResponse
+	r, err := c.do(req, &resp)
 	if err != nil {
 		return GetMessageResponse{}, nil, err
 	}
 
-	return message, resp, nil
+	return resp, r, nil
 }

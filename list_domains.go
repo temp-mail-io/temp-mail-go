@@ -27,10 +27,10 @@ func (c *Client) ListDomains(ctx context.Context) ([]ListDomainsResponse, *Respo
 	}
 
 	var resp []ListDomainsResponse
-	response, err := c.do(req, &resp)
+	r, err := c.do(req, &resp)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return resp, response, nil
+	return resp, r, nil
 }

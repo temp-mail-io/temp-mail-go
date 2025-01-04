@@ -14,20 +14,20 @@ func (c *Client) DownloadAttachment(ctx context.Context, attachmentID string) ([
 		return nil, nil, err
 	}
 
-	resp, err := c.rawDo(req)
+	r, err := c.rawDo(req)
 	if err != nil {
 		return nil, nil, err
 	}
-	defer resp.Body.Close()
+	defer r.Body.Close()
 
-	if err := c.checkResponse(resp); err != nil {
+	if err := c.checkResponse(r); err != nil {
 		return nil, nil, err
 	}
 
-	b, err := io.ReadAll(resp.Body)
+	b, err := io.ReadAll(r.Body)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return b, resp, nil
+	return b, r, nil
 }

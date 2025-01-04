@@ -13,10 +13,10 @@ func (c *Client) DeleteMessage(ctx context.Context, messageID string) (*Response
 		return nil, err
 	}
 
-	resp, err := c.do(req, nil)
+	r, err := c.do(req, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	return resp, nil
+	return r, nil
 }
