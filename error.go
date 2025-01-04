@@ -3,10 +3,13 @@ package temp_mail_go
 import (
 	"fmt"
 	"io"
+	"net/http"
 )
 
-// HTTPError is the error response that will be returned by the API.
+// HTTPError reports one or more errors caused by an API request.
+// Temp Mail API docs: https://docs.temp-mail.io/docs/getting-started#error-handling
 type HTTPError struct {
+	Response     *http.Response `json:"-"` // HTTP response that caused this error
 	ErrorDetails HTTPErrorError `json:"error"`
 	Meta         HTTPErrorMeta  `json:"meta"`
 }
@@ -26,11 +29,11 @@ type HTTPErrorMeta struct {
 }
 
 func (h *HTTPError) Error() string {
-	return fmt.Sprintf("error: %s, code: %s, detail: %s", h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail)
+	return fmt.Sprintf("status %d, error: %s, code: %s, detail: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail)
 }
 
 func (h *HTTPError) fullError() string {
-	return fmt.Sprintf("error: %s, code: %s, detail: %s, request_id: %s", h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail, h.Meta.RequestID)
+	return fmt.Sprintf("status %d, error: %s, code: %s, detail: %s, request_id: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail, h.Meta.RequestID)
 }
 
 // Format implements fmt.Formatter interface.

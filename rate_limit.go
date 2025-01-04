@@ -1,29 +1,50 @@
 package temp_mail_go
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
-type RateLimitResponse struct {
-	// Limit is the maximum number of requests that you can make per period.
-	Limit int64 `json:"limit"`
-	// Used is the number of requests you have made in the current rate limit window.
-	Used int64 `json:"used"`
+// Rate represents the rate limit for the current client.
+type Rate struct {
+	// Limit is the number of requests per hour the client is currently limited to.
+	Limit int
+	// Used is the number of requests the client has made within the current rate limit window.
+	Used int
 	// Remaining is the number of requests remaining in the current rate limit window.
-	Remaining int64 `json:"remaining"`
+	Remaining int
+	// Reset is the time at which the current rate limit will reset.
+	Reset time.Time
+}
+
+type rateLimitResponse struct {
+	// Limit is the number of requests per hour the client is currently limited to.
+	Limit int `json:"limit"`
+	// Used is the number of requests the client has made within the current rate limit window.
+	Used int `json:"used"`
+	// Remaining is the number of requests remaining in the current rate limit window.
+	Remaining int `json:"remaining"`
 	// Reset is the time at which the current rate limit window resets, in UTC epoch seconds.
 	Reset int64 `json:"reset"`
 }
 
 // RateLimit returns the current rate limit for the client.
-func (c *Client) RateLimit(ctx context.Context) (RateLimitResponse, error) {
+func (c *Client) RateLimit(ctx context.Context) (Rate, *Response, error) {
 	req, err := c.newRequest(ctx, "GET", "/v1/rate_limit", nil)
 	if err != nil {
-		return RateLimitResponse{}, err
+		return Rate{}, nil, err
 	}
 
-	var resp RateLimitResponse
-	if err := c.do(req, &resp); err != nil {
-		return RateLimitResponse{}, err
+	var resp rateLimitResponse
+	r, err := c.do(req, &resp)
+	if err != nil {
+		return Rate{}, nil, err
 	}
 
-	return resp, nil
+	return Rate{
+		Limit:     resp.Limit,
+		Used:      resp.Used,
+		Remaining: resp.Remaining,
+		Reset:     time.Unix(resp.Reset, 0),
+	}, r, nil
 }
