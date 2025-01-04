@@ -63,14 +63,16 @@ func (c *Client) newRequest(ctx context.Context, method, path string, data inter
 }
 
 // do sends an HTTP request and decodes the response.
+// If v is nil, caller is responsible for closing the response body.
 func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	r, err := c.doer.Do(req)
 	if err != nil {
 		return nil, err
 	}
-	defer r.Body.Close()
 
 	if r.StatusCode < 200 || r.StatusCode >= 300 {
+		defer r.Body.Close()
+
 		httpErr := HTTPError{
 			Response: r,
 		}
@@ -81,6 +83,8 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	}
 
 	if v != nil {
+		defer r.Body.Close()
+
 		if err := json.NewDecoder(r.Body).Decode(v); err != nil {
 			return nil, err
 		}
