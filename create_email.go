@@ -56,11 +56,7 @@ type CreateEmailResponse struct {
 // It returns the email address and the time to live of the email address.
 // You should use this method before getting messages for the email address.
 func (c *Client) CreateEmail(ctx context.Context, options CreateEmailOptions) (CreateEmailResponse, *Response, error) {
-	req, err := c.newRequest(ctx, http.MethodPost, "/v1/emails", createEmailRequest{
-		Email:      options.Email,
-		DomainType: options.DomainType,
-		Domain:     options.Domain,
-	})
+	req, err := c.newRequest(ctx, http.MethodPost, "/v1/emails", createEmailRequest(options))
 	if err != nil {
 		return CreateEmailResponse{}, nil, err
 	}
