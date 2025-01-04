@@ -14,11 +14,15 @@ func (c *Client) DownloadAttachment(ctx context.Context, attachmentID string) ([
 		return nil, nil, err
 	}
 
-	resp, err := c.do(req, nil)
+	resp, err := c.rawDo(req)
 	if err != nil {
 		return nil, nil, err
 	}
 	defer resp.Body.Close()
+
+	if err := c.checkResponse(resp); err != nil {
+		return nil, nil, err
+	}
 
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {

@@ -17,7 +17,6 @@ func (c *Client) DeleteEmail(ctx context.Context, email string) (*Response, erro
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	return resp, nil
 }

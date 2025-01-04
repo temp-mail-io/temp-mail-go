@@ -63,32 +63,48 @@ func (c *Client) newRequest(ctx context.Context, method, path string, data inter
 }
 
 // do sends an HTTP request and decodes the response.
-// If v is nil, caller is responsible for closing the response body.
 func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
-	r, err := c.doer.Do(req)
+	r, err := c.rawDo(req)
 	if err != nil {
 		return nil, err
 	}
+	defer r.Body.Close()
 
-	if r.StatusCode < 200 || r.StatusCode >= 300 {
-		defer r.Body.Close()
-
-		httpErr := HTTPError{
-			Response: r,
-		}
-		if err := json.NewDecoder(r.Body).Decode(&httpErr); err != nil {
-			return nil, err
-		}
-		return nil, &httpErr
+	if err := c.checkResponse(r); err != nil {
+		return nil, err
 	}
 
 	if v != nil {
-		defer r.Body.Close()
-
 		if err := json.NewDecoder(r.Body).Decode(v); err != nil {
 			return nil, err
 		}
 	}
 
+	return r, nil
+}
+
+// rawDo sends an HTTP request and returns the response.
+// It does not decode the response body nor check the status code.
+// Caller is responsible for closing the response body.
+func (c *Client) rawDo(req *http.Request) (*Response, error) {
+	r, err := c.doer.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
 	return newResponse(r), nil
+}
+
+// checkResponse checks the response for errors.
+func (c *Client) checkResponse(r *Response) error {
+	if r.StatusCode < 200 || r.StatusCode >= 300 {
+		httpErr := HTTPError{
+			Response: r.Response,
+		}
+		if err := json.NewDecoder(r.Body).Decode(&httpErr); err != nil {
+			return err
+		}
+		return &httpErr
+	}
+	return nil
 }
