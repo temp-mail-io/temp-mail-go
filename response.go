@@ -6,9 +6,7 @@ import (
 	"time"
 )
 
-// Response is a GitHub API response. This wraps the standard http.Response
-// returned from GitHub and provides convenient access to things like
-// pagination links.
+// Response is a wrapper around http.Response that provides rate limit information.
 type Response struct {
 	*http.Response
 
