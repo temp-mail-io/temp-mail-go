@@ -108,7 +108,7 @@ if err != nil {
 fmt.Printf("Fetched %d messages.\n", len(messages))
 
 // Deleting a specific message
-_, err = client.DeleteMessageV1(context.Background(), messages[0].ID)
+_, err = client.DeleteMessage(context.Background(), messages[0].ID)
 if err != nil {
     // handle error
 }

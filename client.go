@@ -62,7 +62,9 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 	defer r.Body.Close()
 
 	if r.StatusCode < 200 || r.StatusCode >= 300 {
-		var httpErr HTTPError
+		httpErr := HTTPError{
+			Response: r,
+		}
 		if err := json.NewDecoder(r.Body).Decode(&httpErr); err != nil {
 			return nil, err
 		}

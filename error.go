@@ -29,11 +29,11 @@ type HTTPErrorMeta struct {
 }
 
 func (h *HTTPError) Error() string {
-	return fmt.Sprintf("status %d, error: %s, code: %s, detail: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail)
+	return fmt.Sprintf("status %d, error type: %s, code: %s, detail: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail)
 }
 
 func (h *HTTPError) fullError() string {
-	return fmt.Sprintf("status %d, error: %s, code: %s, detail: %s, request_id: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail, h.Meta.RequestID)
+	return fmt.Sprintf("status %d, error type: %s, code: %s, detail: %s, request_id: %s", h.Response.StatusCode, h.ErrorDetails.Type, h.ErrorDetails.Code, h.ErrorDetails.Detail, h.Meta.RequestID)
 }
 
 // Format implements fmt.Formatter interface.
