@@ -54,13 +54,13 @@ func main() {
 
     // Use the created temporary email on the website, service, etc...
 	...
-	
+
 	// Fetch messages for the created email
     data, _, err := client.ListEmailMessages(context.Background(), email.Email)
 	if err != nil {
         log.Fatalf("Failed to fetch messages: %v", err)
     }
-	
+
 	for _, m := range data.Messages {
 		// Iterate over messages
     }
