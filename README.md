@@ -85,7 +85,7 @@ rate, _, err := client.RateLimit(context.Background())
 if err != nil {
     // handle error
 }
-fmt.Printf("limit: %d, used: %d, remaining: %d, reset: %s\n", resp.Limit, resp.Used, resp.Remaining, resp.Reset)
+fmt.Printf("limit: %d, used: %d, remaining: %d, reset: %s\n", rate.Limit, rate.Used, rate.Remaining, rate.Reset)
 // Output: limit: 1000, used: 0, remaining: 1000, reset: 2025-01-31 23:59:59 +0000 UTC
 ```
 
