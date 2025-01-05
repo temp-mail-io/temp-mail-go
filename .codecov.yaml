@@ -1,0 +1,2 @@
+ignore:
+  - "mock_*.go"       # Ignore all generated mocks
