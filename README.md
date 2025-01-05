@@ -38,7 +38,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/temp-mail-io/temp-mail-go"
@@ -48,12 +47,23 @@ func main() {
 	// Replace with your real API key
 	client := tempmail.NewClient("YOUR_API_KEY", nil)
 
-	domains, _, err := client.ListDomains(context.Background())
+	email, _, err := client.CreateEmail(context.Background(), tempmail.CreateEmailOptions{})
 	if err != nil {
-		log.Fatalf("Error listing domains: %v", err)
+		log.Fatalf("Failed to create temporary email: %v", err)
 	}
 
-	fmt.Println("Available domains:", domains)
+    // Use the created temporary email on the website, service, etc...
+	...
+
+	// Fetch messages for the created email
+    data, _, err := client.ListEmailMessages(context.Background(), email.Email)
+	if err != nil {
+        log.Fatalf("Failed to fetch messages: %v", err)
+    }
+
+	for _, m := range data.Messages {
+		// Iterate over messages
+    }
 }
 ```
 

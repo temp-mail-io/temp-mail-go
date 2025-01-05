@@ -46,16 +46,16 @@ type ListEmailMessagesAttachmentResponse struct {
 }
 
 // ListEmailMessages returns all messages for the email address.
-func (c *Client) ListEmailMessages(ctx context.Context, email string) ([]ListEmailMessagesResponse, *Response, error) {
+func (c *Client) ListEmailMessages(ctx context.Context, email string) (ListEmailMessagesResponse, *Response, error) {
 	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf("/v1/emails/%s/messages", email), nil)
 	if err != nil {
-		return nil, nil, err
+		return ListEmailMessagesResponse{}, nil, err
 	}
 
-	var resp []ListEmailMessagesResponse
+	var resp ListEmailMessagesResponse
 	r, err := c.do(req, &resp)
 	if err != nil {
-		return nil, nil, err
+		return ListEmailMessagesResponse{}, nil, err
 	}
 
 	return resp, r, nil

@@ -14,3 +14,14 @@ repos:
       - id: golangci-lint
         entry: golangci-lint run --fix
         pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: go-generate
+        name: go generate
+        entry: go generate ./...
+        language: golang
+        language_version: 1.23.4
+        pass_filenames: false
+        additional_dependencies:
+          - github.com/vektra/mockery/v2@v2.50.4

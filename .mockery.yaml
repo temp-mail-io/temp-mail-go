@@ -1,0 +1,10 @@
+with-expecter: true
+packages:
+  github.com/temp-mail-io/temp-mail-go:
+    interfaces:
+      doer:
+        config:
+          filename: mock_doer.go
+          dir: .
+          mockname: mockDoer
+          inpackage: true

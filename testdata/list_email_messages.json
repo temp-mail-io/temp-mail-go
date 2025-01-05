@@ -1,0 +1,23 @@
+{
+  "messages": [
+    {
+      "attachments": [
+        {
+          "id": "01JE97K1PBYVGKY0PVE3KXSBF9",
+          "name": "invoice.pdf",
+          "size": 5120
+        }
+      ],
+      "body_html": "<p>Welcome to our service! Your account has been created successfully.</p>",
+      "body_text": "Welcome to our service! Your account has been created successfully.",
+      "cc": [
+        "another_user@example.com"
+      ],
+      "created_at": "2022-01-31T22:00:00Z",
+      "from": "admin@example.com",
+      "id": "01JE97FT950QRPDYGDXJ4R43QR",
+      "subject": "Your account has been created",
+      "to": "user@example.com"
+    }
+  ]
+}
