@@ -1,9 +1,11 @@
 package tempmail
 
 import (
+	"bytes"
 	"context"
 	"io"
 	"net/http"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -54,4 +56,19 @@ func TestNewRequest(t *testing.T) {
 		require.NoError(t, err)
 		assert.JSONEq(t, `{"domain":"example.com"}`, string(b))
 	})
+}
+
+// readFile reads the file from the given path.
+func readFile(t *testing.T, path string) []byte {
+	b, err := os.ReadFile(path)
+	require.NoError(t, err)
+	return b
+}
+
+// newTestResponse creates a new test response with the given status code and body.
+func newTestResponse(statusCode int, body []byte) *http.Response {
+	return &http.Response{
+		StatusCode: statusCode,
+		Body:       io.NopCloser(bytes.NewReader(body)),
+	}
 }
