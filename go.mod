@@ -1,6 +1,8 @@
 module github.com/temp-mail-io/temp-mail-go
 
-go 1.23.2
+// This should match the minimum supported version that is tested in
+// .github/workflows/test.yml
+go 1.21
 
 require github.com/stretchr/testify v1.10.0
 
