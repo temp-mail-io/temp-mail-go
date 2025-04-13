@@ -15,7 +15,7 @@ type ListDomainsDomainResponse struct {
 	// Name of the domain.
 	Name string `json:"name"`
 	// Type of the domain.
-	// Possible values: "public", "premium", "custom"
+	// Possible values: "public", "Free", "custom"
 	Type string `json:"type"`
 }
 
