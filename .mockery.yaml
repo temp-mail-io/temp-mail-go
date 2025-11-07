@@ -8,3 +8,9 @@ packages:
           dir: .
           mockname: mockDoer
           inpackage: true
+      readCloser:
+        config:
+          filename: mock_read_closer.go
+          dir: .
+          mockname: mockReadCloser
+          inpackage: true

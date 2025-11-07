@@ -1,0 +1,17 @@
+{
+  "id": "01JE97FT950QRPDYGDXJ4R43QR",
+  "from": "sender@example.com",
+  "to": "recipient@example.com",
+  "cc": ["cc@example.com"],
+  "subject": "Test Message",
+  "body_text": "This is a test message.",
+  "body_html": "<p>This is a test message.</p>",
+  "created_at": "2022-01-31T22:00:00Z",
+  "attachments": [
+    {
+      "id": "01JE97K1PBYVGKY0PVE3KXSBF9",
+      "name": "document.pdf",
+      "size": 2048
+    }
+  ]
+}

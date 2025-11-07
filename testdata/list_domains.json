@@ -1,0 +1,16 @@
+{
+  "domains": [
+    {
+      "name": "example.com",
+      "type": "public"
+    },
+    {
+      "name": "premium.com",
+      "type": "premium"
+    },
+    {
+      "name": "custom.com",
+      "type": "custom"
+    }
+  ]
+}

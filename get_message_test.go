@@ -11,39 +11,39 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestClient_ListEmailMessages(t *testing.T) {
+func TestClient_GetMessage(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		mDoer := newMockDoer(t)
-		mDoer.EXPECT().Do(mock.Anything).Return(newTestResponse(http.StatusOK, readFile(t, "testdata/list_email_messages.json")), nil)
+		mDoer.EXPECT().Do(mock.Anything).Return(newTestResponse(http.StatusOK, readFile(t, "testdata/get_message.json")), nil)
 
 		c := newClient()
 		c.doer = mDoer
-		r, resp, err := c.ListEmailMessages(context.Background(), "user@example.com")
+		result, resp, err := c.GetMessage(context.Background(), "01JE97FT950QRPDYGDXJ4R43QR")
 		require.NoError(t, err)
 		assert.Equal(t, 200, resp.StatusCode)
-		require.Len(t, r.Messages, 1)
-		assert.Equal(t, ListEmailMessagesMessageResponse{
+
+		assert.Equal(t, GetMessageResponse{
 			ID:        "01JE97FT950QRPDYGDXJ4R43QR",
-			From:      "admin@example.com",
-			To:        "user@example.com",
-			CC:        []string{"another_user@example.com"},
-			Subject:   "Your account has been created",
-			BodyText:  "Welcome to our service! Your account has been created successfully.",
-			BodyHTML:  "<p>Welcome to our service! Your account has been created successfully.</p>",
+			From:      "sender@example.com",
+			To:        "recipient@example.com",
+			CC:        []string{"cc@example.com"},
+			Subject:   "Test Message",
+			BodyText:  "This is a test message.",
+			BodyHTML:  "<p>This is a test message.</p>",
 			CreatedAt: time.Date(2022, 1, 31, 22, 0, 0, 0, time.UTC),
-			Attachments: []ListEmailMessagesAttachmentResponse{
+			Attachments: []GetMessageAttachmentResponse{
 				{
 					ID:   "01JE97K1PBYVGKY0PVE3KXSBF9",
-					Name: "invoice.pdf",
-					Size: 5120,
+					Name: "document.pdf",
+					Size: 2048,
 				},
 			},
-		}, r.Messages[0])
+		}, result)
 	})
 
 	t.Run("error from newRequest", func(t *testing.T) {
 		c := newClient()
-		_, _, err := c.ListEmailMessages(nil, "user@example.com")
+		_, _, err := c.GetMessage(nil, "01JE97FT950QRPDYGDXJ4R43QR")
 		assert.EqualError(t, err, "net/http: nil Context")
 	})
 
@@ -53,7 +53,7 @@ func TestClient_ListEmailMessages(t *testing.T) {
 
 		c := newClient()
 		c.doer = mDoer
-		_, _, err := c.ListEmailMessages(context.Background(), "nonexistent@example.com")
+		_, _, err := c.GetMessage(context.Background(), "nonexistent_id")
 		require.Error(t, err)
 		var httpErr *HTTPError
 		require.ErrorAs(t, err, &httpErr)

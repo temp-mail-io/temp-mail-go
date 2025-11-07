@@ -42,10 +42,14 @@ func (c *Client) RateLimit(ctx context.Context) (Rate, *Response, error) {
 		return Rate{}, nil, err
 	}
 
-	return Rate{
+	result := Rate{
 		Limit:     resp.Limit,
 		Used:      resp.Used,
 		Remaining: resp.Remaining,
 		Reset:     time.Unix(resp.Reset, 0),
-	}, r, nil
+	}
+	// Set the Rate field in the Response since API doesn't return rate limit headers for this endpoint.
+	r.Rate = result
+
+	return result, r, nil
 }
