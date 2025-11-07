@@ -1,6 +1,8 @@
 # Temp Mail Go Client
 [![Go Reference](https://pkg.go.dev/badge/github.com/temp-mail-io/temp-mail-go.svg)](https://pkg.go.dev/github.com/temp-mail-io/temp-mail-go)
 [![Go](https://github.com/temp-mail-io/temp-mail-go/actions/workflows/test.yml/badge.svg)](https://github.com/temp-mail-io/temp-mail-go/actions)
+[![codecov](https://codecov.io/gh/temp-mail-io/temp-mail-go/branch/main/graph/badge.svg)](https://codecov.io/gh/temp-mail-io/temp-mail-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/temp-mail-io/temp-mail-go)](https://goreportcard.com/report/github.com/temp-mail-io/temp-mail-go)
 
 The **official Go Client** for [Temp Mail](https://temp-mail.io). This library provides developers a straightforward way to create and manage temporary email addresses, retrieve and delete messages, all via the Temp Mail API.
 
