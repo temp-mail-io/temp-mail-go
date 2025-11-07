@@ -22,12 +22,14 @@ func TestClient_RateLimit(t *testing.T) {
 		require.NoError(t, err)
 		assert.Equal(t, 200, resp.StatusCode)
 
-		assert.Equal(t, Rate{
+		expected := Rate{
 			Limit:     1000,
 			Used:      100,
 			Remaining: 900,
 			Reset:     time.Unix(1640995200, 0),
-		}, result)
+		}
+		assert.Equal(t, expected, result)
+		assert.Equal(t, expected, resp.Rate)
 	})
 
 	t.Run("error from newRequest", func(t *testing.T) {
