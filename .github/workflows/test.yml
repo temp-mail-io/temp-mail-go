@@ -10,14 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: ["1.21", "1.22", "1.23"]
+        go-version: ["1.21", "1.22", "1.23", "1.24", "1.25"]
         include:
-          - go-version: "1.23"
-            upload-coverage: true
           - go-version: "1.21"
             upload-coverage: false
           - go-version: "1.22"
             upload-coverage: false
+          - go-version: "1.23"
+            upload-coverage: false
+          - go-version: "1.24"
+            upload-coverage: false
+          - go-version: "1.25"
+            upload-coverage: true
     steps:
       - uses: actions/checkout@v4
 
