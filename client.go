@@ -12,6 +12,13 @@ type doer interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
+// readCloser is just an interface to generate mocks.
+//
+//nolint:unused
+type readCloser interface {
+	io.ReadCloser
+}
+
 // Client is a client for the Temp Mail API.
 type Client struct {
 	// doer is an HTTP client.
