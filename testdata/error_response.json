@@ -1,0 +1,10 @@
+{
+  "error": {
+    "type": "request_error",
+    "code": "not_found",
+    "detail": "Attachment not found"
+  },
+  "meta": {
+    "request_id": "req_123456789"
+  }
+}
