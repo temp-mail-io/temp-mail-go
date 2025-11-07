@@ -44,7 +44,7 @@ func TestParseRate(t *testing.T) {
 		assert.Equal(t, 1000, rate.Limit)
 		assert.Equal(t, 900, rate.Remaining)
 		assert.Equal(t, 100, rate.Used)
-		assert.Equal(t, time.Date(2022, 1, 1, 4, 0, 0, 0, time.Local), rate.Reset)
+		assert.Equal(t, time.Unix(1640995200, 0), rate.Reset)
 	})
 
 	t.Run("no headers present", func(t *testing.T) {
